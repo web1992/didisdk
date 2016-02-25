@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<plugin id="info.linlong.didisdk" version="0.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>didi</name>
+  <description>A Cordova Plugin for using didi SDK in cordova.</description>
+  <author>long lin</author>
+  <keywords>didi</keywords>
+  <js-module name="didiJK" src="www/didiJK.js">
+    <clobbers target="didiJK" />
+  </js-module>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="didiPlugin">
+        <param name="ios-package" value="didiPlugin"/>
+        <!--<param name="onload" value="true"/>-->
+      </feature>
+    </config-file>
+
+
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>location</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+      <string></string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+      <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+      </dict>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+      <array>
+        <string>weixin</string>
+      </array>
+    </config-file>
+
+
+    <resource-file src="src/ios/DIOpenSDK.bundle" />
+
+    <!-- 源码    -->
+    <header-file src="src/ios/didiPlugin.h"/>
+    <source-file src="src/ios/didiPlugin.m"/>
+
+    <!-- 必须的frameworks -->
+    <framework src="src/ios/DIOpenSDK.framework" custom="true"/>
+
+  </platform>
+
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="didiPlugin">
+        <param name="android-package" value="info.linlong.didisdk.didiPlugin" />
+      </feature>
+    </config-file>
+
+	 <config-file target="AndroidManifest.xml" parent="/manifest/application">
+		<activity android:theme="@android:style/Theme.NoTitleBar" android:name="com.sdu.didi.openapi.DiDiWebActivity" android:label="title_activity_di_di_web" android:screenOrientation="portrait"/>
+	</config-file>
+
+    <source-file src="src/android/info/linlong/didisdk/didiPlugin.java" target-dir="src/info/linlong/didisdk/" />
+
+
+    <source-file src="src/android/libs/activity_di_di_web.xml" target-dir="res/layout/" />
+
+
+    <!-- 放入libs文件夹中文件 -->
+
+    <source-file src="src/android/libs/armeabi/libdidi_secure.so" target-dir="libs/armeabi-v7a/"/>
+    <source-file src="src/android/libs/classes.jar" target-dir="libs/"/>
+
+     <source-file src="src/android/libs/drawable-hdpi/didi_loading_icon.png" target-dir="res/drawable-hdpi/"/>
+
+
+    <!-- 权限申请 -->
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+
+    <permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
+    </permission>
+
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <!-- <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission> -->
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" >
+    </uses-permission>
+    <!-- <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"></uses-permission> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CAMERA" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 来电消音 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+<uses-permission android:name="android.permission.INTERNET"/>
+
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    </config-file>
+
+  </platform>
+</plugin>

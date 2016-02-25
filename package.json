@@ -1,0 +1,15 @@
+{
+    "version": "0.0.1",
+    "name": "com.johnwargo.carrier",
+    "cordova_name": "carrier",
+    "description": "A Cordova Plugin for retrieving Wireless Carrier information.",
+    "keywords": [
+        "carrier",
+        "telephony"
+    ],
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": []
+}
