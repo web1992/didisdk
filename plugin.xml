@@ -53,7 +53,6 @@
   </platform>
 
   <platform name="android">
-    <framework src="src/android/libs/locSDK_6.22.jar" custom="true"/>
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="didiPlugin">
         <param name="android-package" value="info.linlong.didisdk.didiPlugin" />

@@ -8,7 +8,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.sdu.didi.openapi.DIOpenSDK;
+//import com.sdu.didi.openapi.DIOpenSDK;
 import com.sdu.didi.openapi.DiDiWebActivity;
 
 import org.apache.cordova.CallbackContext;
@@ -54,9 +54,8 @@ public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
-			Android.util.Log("execute========================"+locationClient);
             locationClient.startLocation();
-            locationClient.stopLocation();
+            //locationClient.stopLocation();
 
             locationClient.getLastKnownLocation().getAccuracy();//精确度，准确性
             locationClient.getLastKnownLocation().getAdCode();
@@ -74,7 +73,7 @@ public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
             String locationDetail = locationClient.getLastKnownLocation().getLocationDetail();
             String errorInfo = locationClient.getLastKnownLocation().getErrorInfo();
 
-            HashMap<String, String> map = new HashMap<>();
+            HashMap<String, String> map = new HashMap<String,String>();
 
             map.put("fromlat", String.valueOf(latitude));//出发地纬度
             map.put("fromlng", String.valueOf(longitude));//出发地经度
@@ -90,9 +89,9 @@ public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
             map.put("errormsg", errorInfo);
             //APPID: didi4979445A50797837306D536C537363
             //Secret:66df05b4881de2027d33203eb22afc5d
-            DiDiWebActivity.registerApp(context, "didi4979445A50797837306D536C537363", "66df05b4881de2027d33203eb22afc5d");
+            DiDiWebActivity.registerApp("didi4979445A50797837306D536C537363", "66df05b4881de2027d33203eb22afc5d");
             DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
-            DIOpenSDK.setMapSdkType(DIOpenSDK.MapLocationType.GAODE);
+           // DIOpenSDK.setMapSdkType(DIOpenSDK.MapLocationType.GAODE);
             return true;
         } catch (Exception e) {
             // If we get here, then something horrible has happened
