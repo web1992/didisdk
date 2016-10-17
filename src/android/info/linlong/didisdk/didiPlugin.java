@@ -20,7 +20,7 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 
-public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
+public class didiPlugin extends CordovaPlugin /**implements AMapLocationListener**/ {
     private Context context;
 
     // 高德地图
@@ -32,10 +32,10 @@ public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
 
     private AlarmManager am;
 
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
+    //@Override
+    //public void onLocationChanged(AMapLocation aMapLocation) {
 
-    }
+    //}
 
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -46,7 +46,7 @@ public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
         // 设置定位模式为高精度模式
         locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         // 设置定位监听
-        locationClient.setLocationListener(this);
+       // locationClient.setLocationListener(this);
 
 
     }
