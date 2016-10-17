@@ -1,168 +1,106 @@
 package info.linlong.didisdk;
 
-import java.io.File;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.sdu.didi.openapi.DIOpenSDK;
+import com.sdu.didi.openapi.DiDiWebActivity;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject; 
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.sdu.didi.openapi.DiDiWebActivity;
+import java.util.HashMap;
+
+public class didiPlugin extends CordovaPlugin implements AMapLocationListener {
+    private Context context;
+
+    // 高德地图
+    private AMapLocationClient locationClient = null;
+    private AMapLocationClientOption locationOption = null;
+
+    private PendingIntent locationPendingIntent;
 
 
-import android.view.WindowManager;
-import android.app.Service;
-import android.content.Context;
-import android.app.AlertDialog;
-import android.os.Bundle; 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.os.SystemClock;
-import android.widget.Toast;
+    private AlarmManager am;
 
-public class didiPlugin extends CordovaPlugin {
-	private LocationClient loccli;
-	LocationClientOption lco;
-	private Context context;
-	
-	private PendingIntent locationPendingIntent;
-	
-	
-	private AlarmManager am;
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
 
-	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-		super.initialize(cordova, webView);
+    }
 
-		// context = this.cordova.getActivity().getApplicationContext();
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
 
-		//db = openTraceDb();
+        context = this.cordova.getActivity().getApplicationContext();
+        locationClient = new AMapLocationClient(context);
+        locationOption = new AMapLocationClientOption();
+        // 设置定位模式为高精度模式
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        // 设置定位监听
+        locationClient.setLocationListener(this);
 
-		// Intent intent = new Intent(Commons.BACKGROUND_LOCATE_ACTION);
-		// locationPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-		
-		// am = (AlarmManager) context.getSystemService(Service.ALARM_SERVICE);
-//		am.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), 15000, null);
-		
-		lco = new LocationClientOption();
-		// lco.setLocationMode(LocationMode.Hight_Accuracy);
-		lco.setOpenGps(true);
 
-		// loccli = new LocationClient(context);
-		
-		// loccli.registerLocationListener(new BDLocationListener() {
+    }
 
-		// 	@Override
-		// 	public void onReceiveLocation(BDLocation arg0) {
+    @Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        try {
+			Android.util.Log("execute========================"+locationClient);
+            locationClient.startLocation();
+            locationClient.stopLocation();
 
-		// 	}
-		// });
-		
-		// loccli.setDebug(true);
-		// loccli.start();
-		
-		
-		// context.registerReceiver(recv, new IntentFilter(Commons.BACKGROUND_LOCATE_ACTION));
-	}
+            locationClient.getLastKnownLocation().getAccuracy();//精确度，准确性
+            locationClient.getLastKnownLocation().getAdCode();
+            locationClient.getLastKnownLocation().getAddress();
+            locationClient.getLastKnownLocation().getAltitude();//高地；高度；
+            locationClient.getLastKnownLocation().getAoiName();
+            locationClient.getLastKnownLocation().getBearing();
+            locationClient.getLastKnownLocation().getCity();
+            locationClient.getLastKnownLocation().getCityCode();
+            locationClient.getLastKnownLocation().getCountry();
+            locationClient.getLastKnownLocation().getDistrict();//区域；地方；行政区
+            double latitude = locationClient.getLastKnownLocation().getLatitude();//纬度
+            double longitude = locationClient.getLastKnownLocation().getLongitude();//经度
+            String street = locationClient.getLastKnownLocation().getStreet();//街道
+            String locationDetail = locationClient.getLastKnownLocation().getLocationDetail();
+            String errorInfo = locationClient.getLastKnownLocation().getErrorInfo();
 
-	private JSONObject voidParam = new JSONObject();
+            HashMap<String, String> map = new HashMap<>();
 
-	@Override
-	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-		try {
-			 HashMap<String,String> map = new HashMap<String, String>();
-		        map.put("aa","bb");
-		        map.put("cc","dd");
-		        map.put("ee", "ff");
-		        DiDiWebActivity.registerApp("didi63482F624F483537684769725451", "7edb7e650d42d62b58b4de287cb4081e");
-		        DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
-			// System.out.println("Cordova : call " + action);
-			// JSONObject param = args.optJSONObject(0);
-			// // JSONArray data  = param.getJSONArray("arr");
-			
-			      
-			// if (param == null)
-			// 	param = voidParam;
+            map.put("fromlat", String.valueOf(latitude));//出发地纬度
+            map.put("fromlng", String.valueOf(longitude));//出发地经度
+            map.put("tolat", String.valueOf(latitude));//目的地纬度
+            map.put("tolng", String.valueOf(longitude));//目的地经度
+            map.put("biz", "1");//默认选中的业务线类型。1打车，2专车
+            map.put("fromaddr", street);//出发地地址
+            map.put("fromname", locationDetail);//出发地名称
+            map.put("toaddr", "1");//目的地地址
+            map.put("toname", "1");//目的地名称
+            map.put("phone", "1");//乘客手机号，方便乘客登录使用，会默认补全到登录框中
+            map.put("maptype", "soso");
+            map.put("errormsg", errorInfo);
+            //APPID: didi4979445A50797837306D536C537363
+            //Secret:66df05b4881de2027d33203eb22afc5d
+            DiDiWebActivity.registerApp(context, "didi4979445A50797837306D536C537363", "66df05b4881de2027d33203eb22afc5d");
+            DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
+            DIOpenSDK.setMapSdkType(DIOpenSDK.MapLocationType.GAODE);
+            return true;
+        } catch (Exception e) {
+            // If we get here, then something horrible has happened
+            System.err.println("Exception: " + e.getMessage());
+            callbackContext.error(e.getMessage());
+            return false;
+        }
+    }
 
-			// if ("didi".equals(action)) {
-				
-			//  HashMap<String,String> map = new HashMap<String, String>();
-		 //        map.put("aa","bb");
-		 //        map.put("cc","dd");
-		 //        map.put("ee", "ff");
-		 //        DiDiWebActivity.registerApp("didi63482F624F483537684769725451", "7edb7e650d42d62b58b4de287cb4081e");
-		 //        DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
-				
-			// 	return true;
-			// }
-			// callbackContext.error("Invalid Action");
-			return true;
-		}
-		catch (Exception e) {
-			// If we get here, then something horrible has happened
-			System.err.println("Exception: " + e.getMessage());
-			callbackContext.error(e.getMessage());
-			return false;
-		}
-	}
-
-	// private JSONArray getTrace(String from, String to) {
-	// 	if (from == null || "".equals(from))
-	// 		from = "0";
-	// 	if (to == null || "".equals(to))
-	// 		to = "A";
-		
-	// 	// Cursor cur = db.rawQuery("select * from BD_TRACE where TIME > '" + from + "' and TIME < 'to'", new String[] {});
-	// 	// JSONArray arr = Commons.cursorToJson(cur);
-	// 	System.out.println("Cordova : BackgroundTrace between :" + from + " and " + to);
-	// 	// cur.close();
-	// 	return true;
-	// }
-
-	// private SQLiteDatabase openTraceDb() {
-	// 	File dbFile = context.getDatabasePath("trace.db");
-	// 	if (!dbFile.exists())
-	// 		dbFile.getParentFile().mkdirs();
-	// 	 SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
-	// 	// Commons.createTable(db);
-	// 	return db;
-	// }
-
-	// private class OnetimeListenerForExec implements BDLocationListener {
-
-	// 	private CallbackContext callback;
-
-	// 	public OnetimeListenerForExec(CallbackContext callback) {
-	// 		this.callback = callback;
-	// 		loccli.registerLocationListener(this);
-	// 	}
-
-	// 	@Override
-	// 	public void onReceiveLocation(BDLocation arg0) {
-	// 		System.out.println("Cordova : " + new Gson().toJson(arg0));
-	// 		// JSONObject ret = Commons.locToJson(arg0);
-	// 		System.out.println("Cordova : " + ret);
-	// 		callback.success(ret);
-
-	// 		loccli.unRegisterLocationListener(this);
-	// 	}
-	// }
 
 }
