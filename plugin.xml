@@ -61,6 +61,8 @@
 
 	 <config-file target="AndroidManifest.xml" parent="/manifest/application">
 		<activity android:theme="@android:style/Theme.NoTitleBar" android:name="com.sdu.didi.openapi.DiDiWebActivity" android:label="title_activity_di_di_web" android:screenOrientation="portrait"/>
+		<meta-data android:name="com.amap.api.v2.apikey" android:value="4f13d132b208041fa38e0ac607178757" />
+ 		<service android:name="com.amap.api.location.APSService" />
 	</config-file>
 
     <source-file src="src/android/info/linlong/didisdk/didiPlugin.java" target-dir="src/info/linlong/didisdk/" />
@@ -84,11 +86,6 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
-    <permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
-    </permission>
-
-    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
-    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
@@ -128,6 +125,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+	
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 <uses-permission android:name="android.permission.INTERNET"/>

@@ -3,6 +3,14 @@
 参考：[didisdk](https://github.com/Nealyang/didisdk)
 原有的百度定位，现在改成了高德定位
 
+
+高德地址参数配置
+---
+	<meta-data android:name="com.amap.api.v2.apikey" android:value="4f13d132b208041fa38e0ac607178757" />
+ 	<service android:name="com.amap.api.location.APSService" />
+        4f13d132b208041fa38e0ac607178757 #就是你在高德开发中后台神经的key
+
+
 Useage
 ---
 
