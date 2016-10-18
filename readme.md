@@ -10,7 +10,7 @@
 	<meta-data android:name="com.amap.api.v2.apikey" android:value="4f13d132b208041fa38e0ac607178757" />
  	<service android:name="com.amap.api.location.APSService" />
         
-4f13d132b208041fa38e0ac607178757 #就是你在高德开发中后台神经的key
+4f13d132b208041fa38e0ac607178757 #就是你在高德开发中后台申请的key
 
 
 Useage
