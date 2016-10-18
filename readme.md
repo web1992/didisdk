@@ -5,7 +5,7 @@
 
 [cordova demo](https://github.com/web1992/cordova)
 
-![](http://i.imgur.com/ESWrglo.jpg)
+![](http://i.imgur.com/cXEKz9v.png)
 
 高德参数配置
 ---
