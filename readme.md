@@ -1,26 +1,28 @@
-Carrier Plugin
-==============
-This plugin is a sample native plugin from Apache Cordova 4 Programming. It exposes the mobile carrier code and country code to a Cordova application.
+滴滴出行cordova插件
+---
+参考：[didisdk](https://github.com/Nealyang/didisdk)
+原有的百度定位，现在改成了高德定位
 
-To add the plugin to your application, use:
+Useage
+---
 
-	cordova plugin add com.johnwargo.carrier 
+	cordova plugin add https://github.com/web1992/didisdk#0.0.3 --save
 
-There are two methods exposed by this plugin
+发布的版本在 https://github.com/web1992/didisdk/releases 可以找到
 
-`getCarrierName`: returns the name of carrier supplying service to the mobile device.
+或者可以把项目下载到本地
+	 cordova plugin add /data/www/didisdk/ --save
+	 /data/www/didisdk/ 是你下载的目录
 
-Usage: 
-
-
-
-That's it!
-
-***
-
-You can find information on many different topics on my [personal blog](http://www.johnwargo.com). Learn about all of my publications at [John Wargo Books](http://www.johnwargobooks.com). 
+本地的插件在修改之后，需要删除插件，重新安装插件
+	cordova plugin list
+	cordova plugin rm info.linlong.didisdk
+	cordova plugin add /data/www/didisdk/ --save
 
 
-//使用说明
- didiJK.didiPluginFun();
+EOF
+---
+
+
+
 
