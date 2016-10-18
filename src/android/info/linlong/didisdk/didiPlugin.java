@@ -3,7 +3,6 @@ package info.linlong.didisdk;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -51,11 +50,10 @@ public class didiPlugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
             locationClient.startLocation();
-            Thread.sleep(2 * 1000);
             locationClient.stopLocation();
             HashMap<String, String> map = buildParamMap();
 
-            DiDiWebActivity.registerApp(null, APPID, SECRET);
+            DiDiWebActivity.registerApp( APPID, SECRET);
             DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
             return true;
         } catch (Exception e) {
@@ -66,7 +64,6 @@ public class didiPlugin extends CordovaPlugin {
         }
     }
 
-    @NonNull
     private HashMap<String, String> buildParamMap() {
         locationClient.getLastKnownLocation().getAccuracy();//精确度，准确性
         locationClient.getLastKnownLocation().getAdCode();
