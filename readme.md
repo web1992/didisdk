@@ -13,7 +13,7 @@
 4f13d132b208041fa38e0ac607178757 #就是你在高德开发中后台申请的key
 
 
-Useage
+Usage
 ---
 
 	cordova plugin add https://github.com/web1992/didisdk#0.0.3 --save
