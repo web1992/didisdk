@@ -10,6 +10,8 @@
 高德参数配置
 ---
 
+修改`plugin.xml` config-file 标签
+
 	<meta-data android:name="com.amap.api.v2.apikey" android:value="4f13d132b208041fa38e0ac607178757" />
  	<service android:name="com.amap.api.location.APSService" />
         
