@@ -3,6 +3,9 @@
 参考：[didisdk](https://github.com/Nealyang/didisdk)
 原有的百度定位，现在改成了高德定位
 
+[cordova demo](https://github.com/web1992/cordova)
+
+![](http://i.imgur.com/ESWrglo.jpg)
 
 高德参数配置
 ---
