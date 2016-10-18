@@ -18,7 +18,7 @@ Useage
 
 	cordova plugin add https://github.com/web1992/didisdk#0.0.3 --save
 
-发布的版本在 https://github.com/web1992/didisdk/releases 可以找到
+发布的版本在 [releases](https://github.com/web1992/didisdk/releases) 可以找到
 
 或者可以把项目下载到本地,通过本地文件添加插件
 
