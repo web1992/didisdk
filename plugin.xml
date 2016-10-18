@@ -76,6 +76,7 @@
     <source-file src="src/android/libs/armeabi/libdidi_secure.so" target-dir="libs/armeabi-v7a/"/>
     <source-file src="src/android/libs/classes.jar" target-dir="libs/"/>
 	<source-file src="src/android/libs/locSDK_6.22.jar" target-dir="libs/"/>
+	<source-file src="src/android/libs/AMap_Location_V3.0.0_20160922.jar" target-dir="libs/"/>
      <source-file src="src/android/libs/drawable-hdpi/didi_loading_icon.png" target-dir="res/drawable-hdpi/"/>
 
 
