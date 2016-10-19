@@ -19,6 +19,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject; 
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -109,7 +110,25 @@ public class didiPlugin extends CordovaPlugin {
         try {
 
             HashMap<String, String> map = buildParamMap();
-
+		    JSONObject param = args.optJSONObject(0);
+			Log.d("execute","param="+ param);
+			Log.d("execute","map before="+ map);
+			if(null != param){
+				String fromlat=String.valueOf(param.opt("fromlat"));
+				String fromlng=String.valueOf(param.opt("fromlng"));
+				String tolat=String.valueOf(param.opt("tolat"));
+				String tolng=String.valueOf(param.opt("tolng"));
+				String biz=String.valueOf(param.opt("biz"));
+				
+				map.put("fromlat", fromlat);//出发地纬度
+				map.put("fromlng", fromlng);//出发地经度
+				map.put("tolat", tolat);//目的地纬度
+				map.put("tolng", tolng);//目的地经度
+				map.put("biz", biz);//默认选中的业务线类型。1打车，2专车
+			}
+	
+			Log.d("execute","map after="+ map);
+		
             DiDiWebActivity.registerApp(APPID, SECRET);
             DiDiWebActivity.showDDPage(this.cordova.getActivity(), map);
             // js 回调
