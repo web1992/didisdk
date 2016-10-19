@@ -109,8 +109,14 @@ public class didiPlugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
 
-            HashMap<String, String> map = buildParamMap();
-		    JSONObject param = args.optJSONObject(0);
+            //HashMap<String, String> map = buildParamMap();
+            HashMap<String, String> map = new HashMap<String,String>();
+		    //JSONObject param = args.optJSONObject(0);
+		    JSONObject jsonObject=new JSONObject();
+		    JSONArray jsonArray = jsonObject.getJSONArray(args.toString());
+		    JSONObject param = jsonArray.getJSONObject(0);
+
+			Log.d("execute","args="+ args);
 			Log.d("execute","param="+ param);
 			Log.d("execute","map before="+ map);
 			if(null != param){
