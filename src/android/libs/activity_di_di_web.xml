@@ -45,4 +45,3 @@
         android:layout_below="@id/didi_toolbar" />
 
 </RelativeLayout>
-<!-- From: file:/Users/liyang/Documents/code/openapi-android/openapi2/src/main/res/layout/activity_di_di_web.xml -->
